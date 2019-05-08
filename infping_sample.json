@@ -6,6 +6,7 @@
 		"pass": "",
 		"secure": false,
 		"db": "infping"
+		"insecureskipverify": false
 	},
 	"infping": {
 		"backoff": "1",
