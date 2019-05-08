@@ -96,12 +96,12 @@ func main() {
 
 	influxClient := NewInfluxClient(rawClient, influxDB, influxRetPolicy)
 
-	dur, version, err := influxClient.Ping()
+	/*dur, version, err := influxClient.Ping()
 	if err != nil {
 		log.Fatal("Unable to ping InfluxDB", err)
 	}
 	log.Printf("Pinged InfluxDB (version %s) in %v", version, dur)
-
+	*/
 	q := client.Query{
 		Command: "SHOW DATABASES",
 	}
