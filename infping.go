@@ -33,6 +33,9 @@ import (
 	"net/url"
 	"strings"
 	"time"
+	"flag"
+	"path/filepath"
+	"os"
 
 	"github.com/influxdata/influxdb1-client/v2"
 	"github.com/spf13/viper"
@@ -54,11 +57,15 @@ func main() {
 	viper.SetDefault("hosts.hosts", []string{"localhost"})
 	viper.SetDefault("influx.insecureskipverify", false)
 
-	viper.SetConfigName("infping")
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	configPtr := flag.String("config", "infping", "config filename without extension")
+    	flag.Parse()
+	viper.SetConfigName(*configPtr)
 	viper.AddConfigPath("/etc/")
 	viper.AddConfigPath("/usr/local/etc/")
-	viper.AddConfigPath("/config/")
+	viper.AddConfigPath(dir + "/config/")
 	viper.AddConfigPath(".")
+	viper.AddConfigPath(dir)
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatal("Unable to read config file", err)
 	}
