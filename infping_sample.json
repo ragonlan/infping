@@ -5,7 +5,7 @@
 		"user": "",
 		"pass": "",
 		"secure": false,
-		"db": "infping"
+		"db": "infping",
 		"insecureskipverify": false
 	},
 	"infping": {
