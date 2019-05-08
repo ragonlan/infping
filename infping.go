@@ -52,6 +52,7 @@ func main() {
 	viper.SetDefault("fping.period", "1000")
 	viper.SetDefault("fping.custom", map[string]string{})
 	viper.SetDefault("hosts.hosts", []string{"localhost"})
+	viper.SetDefault("influx.insecureskipverify", false)
 
 	viper.SetConfigName("infping")
 	viper.AddConfigPath("/etc/")
@@ -66,6 +67,7 @@ func main() {
 	if !viper.GetBool("influx.secure") {
 		influxScheme = "http"
 	}
+	influxskipver := viper.GetBool("influx.insecureskipverify")
 	influxHost := viper.GetString("influx.host")
 	influxPort := viper.GetString("influx.port")
 	influxUser := viper.GetString("influx.user")
@@ -84,6 +86,7 @@ func main() {
 		Addr:     u.String(),
 		Username: influxUser,
 		Password: influxPass,
+		InsecureSkipVerify: influxskipver,
 	}
 
 	rawClient, err := client.NewHTTPClient(conf)
